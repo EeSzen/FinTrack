@@ -11,6 +11,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\assignRolesToUsersController;
 use App\Http\Controllers\UserEditController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SuperAdminController;
 
 // New page
 Route::get('/', [
@@ -67,9 +68,7 @@ Route::resource("expenses", ExpensesController::class);
 
 
 // update roles to users
-Route::get('/super_admin',[
-    assignRolesToUsersController::class,
-    'assignRolesToUsersPage'])->name('super_admin');
+
 
 Route::post('/update/{id}',[
     assignRolesToUsersController::class,
@@ -78,9 +77,12 @@ Route::post('/update/{id}',[
 // edit users
 Route::get('/edit_users/{id}', [UserEditController::class, 'edit'])->name('edit_users');
 Route::put('/user/update/{id}', [UserEditController::class, 'update'])->name('user.update');
-Route::delete('/user/delete', [UserEditController::class, 'destroy'])->name('user.destroy');
+Route::delete('/users/{id}', [UserEditController::class, 'destroy'])->name('user.destroy');
 
 // expenses report
 Route::get('/reports/summary', [ReportController::class, 'summary'])->name('summary');
 // budget report
 Route::get('/reports/budget-summary', [ReportController::class, 'budgetSummary'])->name('budget_summary');
+
+// routing back to edit
+Route::get('/super_admin', [SuperAdminController::class, 'index'])->name('super_admin');

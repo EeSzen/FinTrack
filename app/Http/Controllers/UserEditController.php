@@ -47,13 +47,14 @@ public function update(Request $request, $id)
 }
 
 // Delete the user account
-public function destroy()
+public function destroy($id)
 {
-    $user = Auth::user(); // Get the currently authenticated user
-    $user->delete(); // Delete the user
+    $user = User::findOrFail($id); // Get the currently authenticated user
 
     Gate::authorize('delete',$user);
 
-    return redirect()->route('/')->with('success', 'Account deleted successfully.');
+    $user->delete(); // Delete the user
+
+    return redirect()->route('super_admin')->with('success', 'Account deleted successfully.');
 }
 }

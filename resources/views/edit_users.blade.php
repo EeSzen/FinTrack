@@ -55,10 +55,10 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <!-- Real DELETE button -->
-                        <form action="{{ route('user.destroy') }}" method="POST">
+                        <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger w-100">Delete Account</button>
+                            <button type="submit" class="btn btn-danger">Delete Account</button>
                         </form>
                     </div>
                     </div>
