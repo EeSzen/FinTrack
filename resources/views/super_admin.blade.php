@@ -4,17 +4,20 @@
 
 @auth
 
-@if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2)
+    <!-- Check if the authenticated user has the required role -->
+    @if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2)
 
 @section('content')
 
 <div class="container mt-5">
     <h1 class="mb-4 m-2">Manage Users</h1>
     
+    <!-- Display success message if available -->
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
+    <!-- Users Table -->
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -22,7 +25,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 @if (auth()->user()->role_id === 1)
-                <th>Assign Role</th>
+                    <th>Assign Role</th>
                 @endif
                 <th>Edit User</th>
             </tr>
@@ -33,8 +36,10 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    
                     @if (auth()->user()->role_id === 1)
                     <td>
+                        <!-- Role assignment form -->
                         <form action="{{ route('update', $user->id) }}" method="POST" class="d-flex bg-transparent">
                             @csrf
                             <select name="role_id" class="form-select me-2" required>
@@ -47,7 +52,9 @@
                         </form>
                     </td>
                     @endif
+
                     <td>
+                        <!-- Edit user button -->
                         <a href="{{ route('edit_users', $user->id) }}" class="btn btn-warning">Edit</a>
                     </td>
                 </tr>
@@ -59,12 +66,13 @@
 @endsection
 
 @else
-<div class="card w-75 my-3 mx-auto text-center">
-    <div class="card-body">
-        <h5 class="card-title text-danger">You do not have access to this page</h5>
-        <a href="/" class="btn btn-primary">Return</a>
+    <!-- Access Denied Message -->
+    <div class="card w-75 my-3 mx-auto text-center">
+        <div class="card-body">
+            <h5 class="card-title text-danger">You do not have access to this page</h5>
+            <a href="/" class="btn btn-primary">Return</a>
+        </div>
     </div>
-</div>
 
 @endif
 @endauth

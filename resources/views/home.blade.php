@@ -5,20 +5,23 @@
 @section('content')
 
 <div class="container-fluid mt-5">
-    <h1 class="text-center text-light mb-4">FinTrack</h1>
+    <h1 class="text-center text-light mb-4 fs-1">FinTrack</h1>
 
     @guest
+        <!-- Guest User Section -->
         <div class="text-center text-light mb-4">
             <h3>Hello, {{ $name }}!</h3>
             <p>Please log in to start budgeting!</p>
             <a href="/signup" class="btn btn-outline-light px-5">Get Started</a>
         </div>
     @else
+        <!-- Authenticated User Section -->
         <div class="text-center text-light mb-4">
             <h3>Welcome Back, {{ $name }}!</h3>
         </div>
 
         <div class="row mb-5">
+            <!-- Current Role Card -->
             <div class="col-md-6 mb-4">
                 <div class="card bg-light shadow-sm">
                     <div class="card-header">
@@ -34,13 +37,14 @@
                         @endif
                         <div class="mt-4">
                             <h4>Reports</h4> 
-                            <a href="{{ route('budget_summary')}}" class="btn btn-primary m-1">Budget Summary Overview</a>
-                            <a href="{{ route('summary')}}" class="btn btn-primary m-1">Summary Overview</a>
+                            <a href="{{ route('budget_summary') }}" class="btn btn-purple m-1">Budget Summary Overview</a>
+                            <a href="{{ route('summary') }}" class="btn btn-purple m-1">Summary Overview</a>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Summary Expenses Card -->
             <div class="col-md-6 mb-4">
                 <div class="card bg-light shadow-sm">
                     <div class="card-header">
@@ -80,39 +84,53 @@
             </div>
         </div>
 
-        <div class="bg-dark text-light p-4 rounded mb-5">
-            <h2>My Budgets</h2>
-            <div class="row">
-                @foreach($budgets as $budget)
-                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                        <div class="card bg-primary text-white">
-                            <div class="card-body text-center">
-                                <h5>{{ $budget->title }}</h5>
-                                <p>Category: {{ $budget->category }}</p>
-                                <a href="/budgets/{{ $budget->id }}" class="btn btn-light rounded">View</a>
+        <!-- Budgets Section -->
+        <div class="title">
+            <h1 class="text-center text-light p-3">Budgets</h1>
+        </div>
+        @if ($budgets->isEmpty())
+            <p class="alert alert-dark">No budgets recorded.</p>
+        @else
+            <div class="bg-dark text-light p-4 rounded mb-5">
+                <div class="row">
+                    @foreach($budgets as $budget)
+                        <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body text-center">
+                                    <h5>{{ $budget->title }}</h5>
+                                    <p>Category: {{ $budget->category }}</p>
+                                    <a href="/budgets/{{ $budget->id }}" class="btn btn-light rounded">View</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
+        @endif
 
-        <div class="bg-dark text-light p-4 rounded">
-            <h2>My Expenses</h2>
-            <div class="row">
-                @foreach($expenses as $expense)
-                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <h5>{{ $expense->title }}</h5>
-                                <p>Category: {{ $expense->category }}</p>
-                                <a href="/expenses/{{ $expense->id }}" class="btn btn-primary rounded">View</a>
+        <!-- Expenses Section -->
+        <div class="title">
+            <h1 class="text-center text-light p-3">Expenses</h1>
+        </div>
+        @if ($expenses->isEmpty())
+            <p class="alert alert-dark">No expenses recorded.</p>
+        @else
+            <div class="bg-dark text-light p-4 rounded">
+                <div class="row">
+                    @foreach($expenses as $expense)
+                        <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5>{{ $expense->title }}</h5>
+                                    <p>Category: {{ $expense->category }}</p>
+                                    <a href="/expenses/{{ $expense->id }}" class="btn btn-primary rounded">View</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
+        @endif
     @endguest
 </div>
 

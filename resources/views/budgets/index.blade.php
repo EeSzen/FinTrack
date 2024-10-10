@@ -15,6 +15,10 @@
         <div class="alert alert-success w-75 mx-auto">{{ session('success') }}</div>
     @endif
 
+    <!-- empty -->
+    @if($budgets->isEmpty())
+        <p class="mx-4 btn btn-sm disabled bg-light">No budgets yet.</p>
+    @else
     <div class="row">
         @foreach ($budgets as $budget)
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
@@ -36,5 +40,6 @@
             </div>
         @endforeach
     </div>
+    @endif
 </div>
 @endsection
