@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Expenses Report')
+
 @section('content')
     <div class="container mt-4">
         <h1 class="m-4">Expense Summary by Category</h1>

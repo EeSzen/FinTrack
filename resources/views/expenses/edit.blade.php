@@ -1,48 +1,79 @@
 @extends("layouts.app")
 
-@section('title', 'Edit Expenses')
+@section('title', 'Expenses')
 
 @section('content')
-<div class="custom-container mt-5">
-    <h1 class="text-center mb-4 text-light">Edit Expense</h1>
-    <div class="box mx-auto w-75 p-4 border rounded shadow-lg bg-dark text-light">
+<div class="container-test">
+    <h1 class="text-center">Edit Expenses</h1>
+    <div class="box mx-auto w-50">
         <form action="/expenses/{{ $expense->id }}" method="POST">
             @csrf
-            @method('PUT')
-
-            <!-- Error box -->
-            @if ($errors->any())
-                <div class="alert alert-danger mb-3">
-                    @foreach ($errors->all() as $error)
+            <!-- error box -->
+            @if ( $errors->any() )
+                <div class="alert alert-danger">
+                    @foreach ( $errors->all() as $error )
                         <div>{{ $error }}</div>
                     @endforeach
                 </div>
             @endif
-
+            @method('PUT')
             <div class="form-group mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ $expense->title }}" placeholder="Enter Expense Title" required>
+                <input type="text" class="form-control" id="title" name="title" value="{{ $expense->title }}" placeholder="Title">
+            </div>
+            <div class="form-group mb-3">
+                <input class="form-control" id="value" name="value" value="{{ $expense->value }}" placeholder="expense">
             </div>
 
-            <div class="form-group mb-3">
-                <label for="value" class="form-label">Amount</label>
-                <input class="form-control" id="value" name="value" type="number" value="{{ $expense->value }}" placeholder="Enter Expense Amount" required>
-            </div>
+            <select class="form-select mb-3" value="{{ $expense->category }}" name="category" id="category">
 
-            <div class="form-group mb-3">
-                <label for="category" class="form-label">Category</label>
-                <select class="form-select" name="category" id="category" required>
-                    <option value="Food" {{ $expense->category == 'Food' ? 'selected' : '' }}>Food</option>
-                    <option value="Rent" {{ $expense->category == 'Rent' ? 'selected' : '' }}>Rent</option>
-                    <option value="Necessity" {{ $expense->category == 'Necessity' ? 'selected' : '' }}>Necessity</option>
-                    <option value="Games" {{ $expense->category == 'Games' ? 'selected' : '' }}>Games</option>
-                    <option value="Luxury" {{ $expense->category == 'Luxury' ? 'selected' : '' }}>Luxury</option>
-                    <option value="Utilities" {{ $expense->category == 'Utilities' ? 'selected' : '' }}>Utilities</option>
-                </select>
-            </div>
+                @if($expense['category']=='Food')
+                <option value="Food" >Food</option>
+                <option value="Rent" >Rent</option>
+                <option value="Neccesity">Neccesity</option>
+                <option value="Games">Games</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Utilities">Utilities</option>
+                @elseif($expense['category']=='Rent')
+                <option value="Rent" >Rent</option>
+                <option value="Food" >Food</option>
+                <option value="Neccesity">Neccesity</option>
+                <option value="Games">Games</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Utilities">Utilities</option>
+                @elseif($expense['category']=='Neccesity')
+                <option value="Neccesity">Neccesity</option>
+                <option value="Food" >Food</option>
+                <option value="Rent" >Rent</option>
+                <option value="Games">Games</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Utilities">Utilities</option>
+                @elseif($expense['category']=='Games')
+                <option value="Games">Games</option>
+                <option value="Food" >Food</option>
+                <option value="Rent" >Rent</option>
+                <option value="Neccesity">Neccesity</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Utilities">Utilities</option>
+                @elseif($expense['category']=='Luxury')
+                <option value="Luxury">Luxury</option>
+                <option value="Food" >Food</option>
+                <option value="Rent" >Rent</option>
+                <option value="Neccesity">Neccesity</option>
+                <option value="Games">Games</option>
+                <option value="Utilities">Utilities</option>
+                @else
+                <option value="Utilities">Utilities</option>
+                <option value="Food" >Food</option>
+                <option value="Rent" >Rent</option>
+                <option value="Neccesity">Neccesity</option>
+                <option value="Games">Games</option>
+                <option value="Luxury">Luxury</option>
+                @endif
 
-            <button type="submit" class="btn btn-primary w-100">Update Expense</button>
+            </select>
+            <button type="submit" class="btn rounded btn-purple">Update</button>
         </form>
     </div>
+    
 </div>
 @endsection
