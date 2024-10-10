@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="m-4">Expense Summary</h1>
+        <h1 class="m-4">Expense Summary by Category</h1>
 
         @if (session('message'))
             <div class="alert alert-info">{{ session('message') }}</div>

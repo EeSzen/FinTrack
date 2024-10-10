@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="m-4">Budget Summary</h1>
+        <h1 class="m-4">Budget Summary by Category</h1>
 
         @if ($budgetSummary->isEmpty())
             <p class="alert alert-warning">No budgets recorded.</p>
